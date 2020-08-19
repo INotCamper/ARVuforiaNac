@@ -13,6 +13,6 @@ public class Note : MonoBehaviour
 
     private void Awake()
     {
-        Destroy(this, 5);
+        Destroy(this.gameObject, 5);
     }
 }

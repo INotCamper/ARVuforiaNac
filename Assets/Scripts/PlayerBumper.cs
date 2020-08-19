@@ -16,7 +16,7 @@ public class PlayerBumper : MonoBehaviour
         {
             Destroy(collision.gameObject);
             points += 10;
-            pointsText.text = points.ToString();
+            pointsText.text = points.ToString() + " Player pos : " + transform.position.ToString();
         }
     }
 }

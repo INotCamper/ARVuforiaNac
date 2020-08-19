@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Note
   - Anchor
+  - Manager
   layers:
   - Default
   - TransparentFX

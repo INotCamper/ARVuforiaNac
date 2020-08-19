@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     public float distanceSpawn = 1f;
     public float spawnRate = 1f;
     public GameObject note;
+    public MusicCreator music;
 
     #endregion
 
@@ -35,6 +37,12 @@ public class GameManager : MonoBehaviour
         if (!note)
             Debug.LogError("É necessário um objeto para ser instanciado", this);
         spawnNoteTime = SpawnNoteInTime(spawnRate);
+    }
+
+    private void FixedUpdate()
+    {
+        if(playerTransform)
+            music.playerQuad = CleanPlayerPos();
     }
 
     #endregion
@@ -76,7 +84,8 @@ public class GameManager : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         anchorRenderer = GameObject.FindGameObjectWithTag("Anchor").GetComponent<MeshRenderer>();
         gameRunning = true;
-        StartCoroutine(spawnNoteTime);
+        //StartCoroutine(spawnNoteTime);
+        music.StartMusic();
     }
 
     private void LooseTrackStop()
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour
         playerTransform = null;
         anchorRenderer = null;
         gameRunning = false;
+        music.StopMusic();
     }
 
     private Vector3 CreateNotePos()
@@ -110,6 +120,11 @@ public class GameManager : MonoBehaviour
             b = Random.Range(0f, 1f),
             a = 1
         };
+    }
+
+    public void EndGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     #endregion
